@@ -1,0 +1,25 @@
+{
+  "name": "ldap-service",
+  "version": "0.0.1",
+  "description": "LDAP Communication Microservice",
+  "main": "src/index.js",
+  "type": "module",
+  "license": "ISC",
+  "scripts": {
+    "build": "yarn tsc",
+    "start": "node dist/server.js",
+    "dev": "yarn build && node --watch dist/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ldapjs": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/ldapjs": "^2.2.5",
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  }
+}

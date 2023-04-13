@@ -1,0 +1,14 @@
+---
+services:
+  ldap-service:
+    build: . 
+    environment:
+      NODE_ENV: production
+      NODE_PORT: ${SERVER_PORT}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    healthcheck:
+      test: ["CMD", "curl", "-fk", "http://localhost:${SERVER_PORT}/api/healthcheck"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
