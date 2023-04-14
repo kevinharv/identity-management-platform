@@ -6,7 +6,11 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "esModuleInterop": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@routes/*": ["./src/routes/*"]
+    }
   },
   "include": [
     "src/**/*.ts"
