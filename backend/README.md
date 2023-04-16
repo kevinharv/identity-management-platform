@@ -1,6 +1,11 @@
 # Backend Services
 
+## TODO
+- [Log Rotation](https://getpino.io/#/docs/help?id=rotate)
+- Logging to Syslog?
+- User CRUD
+- Schema inspection?
+- Type definitions
+
 ## LDAP Service
-- ldapjs version locked at 2.3.3 (or anything sub 3.0.0)
-    - 3.0.0 breaks AD LDAP connections
-    - Lower versions maintain support for AD connections
+- Built on ldapjs v3.x.x

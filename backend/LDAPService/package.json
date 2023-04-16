@@ -2,7 +2,7 @@
   "name": "ldap-service",
   "version": "0.0.1",
   "description": "LDAP Communication Microservice",
-  "main": "dist/index.js",
+  "main": "index.js",
   "type": "module",
   "license": "ISC",
   "scripts": {
@@ -15,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "ldapjs": "^3.0.2",
-    "pino": "^8.11.0"
+    "pino": "^8.11.0",
+    "pino-pretty": "^10.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

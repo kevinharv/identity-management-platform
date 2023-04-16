@@ -1,43 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import ldap from 'ldapjs';
-import { pino } from 'pino';
+import logger from './config/logger.js';
+import initClient from './config/ldapClient.js';
 
-// Set constants from environment
-// const ldapServerAddress = "ldap://" + process.env.LDAP_ADDRESS;
-// const bindDN = process.env.BIND_DN;
-// const bindPW = process.env.BIND_PW;
-const ldapServerAddress = "ldap://192.168.1.80"
-const bindDN = "CN=Test User,OU=Harvey Users,DC=ad,DC=kevharv,DC=com"
-const bindPW = "P@ssword!"
 const port = process.env.NODE_PORT || 3000;
-
-// Initialize logger
-const logger = pino();
-
-// Initialize Express server
 const app = express();
 app.use(cors());
-
-// Initialize LDAP client
-const ldapClient = ldap.createClient({
-    url: ldapServerAddress,
-    log: logger,
-    timeout: 10000,
-    connectTimeout: 5000,
-    reconnect: true
-});
-
-// Attempt LDAP bind
-try {
-    logger.info(`Attempting bind on ${ldapServerAddress} with ${bindDN}`)
-    ldapClient.bind(bindDN, bindPW, (err, res) => {
-        logger.info(res);
-    })
-} catch (err) {
-    logger.error(err);
-}
-
+const ldapClient = initClient();
 
 // Function to print LDAP user attributes
 function printRes(obj: any) {
@@ -71,7 +40,7 @@ app.get('/', async (req, res2) => {
             console.error('error: ' + err.message);
         });
         res.on('end', function (result) {
-            console.log('status: ' + result.status);
+            // console.log('status: ' + result.status);
         });
     });
 });
@@ -99,5 +68,5 @@ process.on("SIGTERM", serverShutdown);
 
 // Bring server online
 app.listen(port, () => {
-    console.log(`Server Listening on Port: ${port}`);
+    logger.info(`Server Listening on Port: ${port}`);
 });

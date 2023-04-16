@@ -1,19 +1,25 @@
 {
   "compilerOptions": {
+    "pretty": true,
     "sourceMap": true,
-    "target": "es6",
-    "module": "ES6",
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "esModuleInterop": true,
+    "target": "ES2020",
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "remove",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "removeComments": true,
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
       "@routes/*": ["./src/routes/*"]
     }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"
