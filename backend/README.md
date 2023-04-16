@@ -6,6 +6,8 @@
 - User CRUD
 - Schema inspection?
 - Type definitions
+- CI/CD
+- Documentation
 
 ## LDAP Service
 - Built on ldapjs v3.x.x
