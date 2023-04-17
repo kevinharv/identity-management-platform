@@ -1,5 +1,5 @@
 # IDM Monorepo
-Modern IDM solution for large enterprises.
+Modern IDM solution for large enterprises. Automate user provisioning, deprovisioning, group membership, and more!
 
 # Architecture
 Microservices (ish) architecture.
