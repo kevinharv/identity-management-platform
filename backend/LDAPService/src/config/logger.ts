@@ -1,10 +1,12 @@
 import { pino } from 'pino';
 
-const file = `logs/${process.pid}.log`
+const logLevel = process.env.LOG_LEVEL || 'warn';
+const logPath = process.env.LOG_PATH || 'logs';
+const file = `${logPath}/ldap-service-${process.pid}.log`
 
 const logger = (process.env.NODE_ENV == "production") ? pino(pino.transport({
     targets: [{
-        level: 'warn',
+        level: logLevel,
         target: 'pino/file',
         options: {
             destination: file,

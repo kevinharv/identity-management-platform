@@ -26,11 +26,12 @@ RUN apk add curl
 WORKDIR /app
 ENV NODE_ENV production
 
+# Copy dependencies, package.json, compiled code
 COPY --from=deps --chown=node:node /app/node_modules ./node_modules
 COPY --chown=node:node ["package.json", "yarn.lock*", "./"]
 COPY --from=builder --chown=node:node ["/app/dist", "."]
 
+# Set user and start server
 USER node
-ENV PORT ${NODE_PORT}
 EXPOSE ${NODE_PORT}
 CMD ["node", "index.js"]

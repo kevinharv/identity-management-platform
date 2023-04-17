@@ -2,18 +2,13 @@ import ldap from 'ldapjs';
 import logger from './logger.js';
 
 // Set constants from environment
-// const ldapServerAddress = "ldap://" + process.env.LDAP_ADDRESS;
-// const bindDN = process.env.BIND_DN;
-// const bindPW = process.env.BIND_PW;
-
-// Dev constants for test AD server
-const ldapServerAddress = "ldap://192.168.1.80"
-const bindDN = "CN=Test User,OU=Harvey Users,DC=ad,DC=kevharv,DC=com"
-const bindPW = "P@ssword!"
+const ldapServerAddress = process.env.LDAP_ADDRESS || "192.168.1.80";
+const bindDN = process.env.BIND_DN || "CN=Test User,OU=Harvey Users,DC=ad,DC=kevharv,DC=com";
+const bindPW = process.env.BIND_PW || "P@ssword!";
 
 // Create the LDAP client - connect with optimal settings
 const ldapClient = ldap.createClient({
-    url: ldapServerAddress,
+    url: "ldap://" + ldapServerAddress,
     log: logger,
     timeout: 2000,
     connectTimeout: 5000,
