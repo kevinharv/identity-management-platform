@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import logger from './config/logger.js';
 import ldapClient from './config/ldapClient.js';
-import { getLDAPUser } from './routes/user.js';
+import userRouter from './routes/user.js';
 
 // Configure application
 const port = process.env.NODE_PORT || 3000;
@@ -10,10 +10,7 @@ const app = express();
 app.use(cors());
 
 // Define routes
-app.get('/user', async (req: any, res) => {
-    const user: LDAPPerson = await getLDAPUser(req.query.upn);
-    res.send(user);
-});
+app.use("/user", userRouter);
 
 // Handle graceful shutdown
 function serverShutdown() {
