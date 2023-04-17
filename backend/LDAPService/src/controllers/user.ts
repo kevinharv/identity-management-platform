@@ -1,4 +1,4 @@
-import ldapjs, { DN, SearchOptions } from "ldapjs";
+import ldapjs, { DN, SearchEntryObject, SearchOptions } from "ldapjs";
 import { basicLDAPSearch } from "../utils/ldapSearch.js";
 import { generatePersonObject } from "../utils/generators.js";
 
@@ -13,10 +13,10 @@ async function getLDAPUser(userPrincipalName: string) {
     }
     
     // Perform search within DN tree position with search parameters
-    const attributes = await basicLDAPSearch(searchDN, searchParams);
+    const response: any = await basicLDAPSearch(searchDN, searchParams);
 
     // Return the friend user object
-    return generatePersonObject(attributes);
+    return generatePersonObject(response.attributes);
 }
 
 export { getLDAPUser };

@@ -23,12 +23,12 @@ async function basicLDAPSearch(searchDN: DN, searchParameters: SearchOptions) {
             // On search entry, get the attributes and generate the object
             res.on('searchEntry', function (entry: any) {
                 logger.debug(`LDAP Search found record for ${searchParameters.filter}`);
-                resolve(entry.pojo.attributes);
+                resolve(entry.pojo);
             });
 
             // Other handlers
             res.on('searchReference', function (referral) {
-                logger.debug('referral: ' + referral.uris.join());
+                logger.info('referral: ' + referral.uris.join());
             });
             res.on('error', function (err) {
                 logger.debug('error: ' + err.message);
@@ -39,7 +39,14 @@ async function basicLDAPSearch(searchDN: DN, searchParameters: SearchOptions) {
         })
     });
 
-    return await LDAPSearchResults;
+
+    try {
+        const res = await LDAPSearchResults;
+        return res;
+    } catch (err) {
+        return null;
+    }
+    
 }
 
 export { basicLDAPSearch };
