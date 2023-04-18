@@ -23,6 +23,7 @@ RUN yarn build
 FROM base AS runner
 # Install curl for healthcheck
 RUN apk add curl
+
 WORKDIR /app
 ENV NODE_ENV production
 

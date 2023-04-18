@@ -10,7 +10,7 @@ services:
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     healthcheck:
-      test: ["CMD", "curl", "-fk", "${SERVER_HOSTNAME}:${SERVER_PORT}/api/healthcheck"]
+      test: ["CMD", "curl", "-fk", "${SERVER_HOSTNAME}:${SERVER_PORT}/healthcheck"]
       interval: 5s
-      timeout: 5s
+      timeout: 3s
       retries: 3

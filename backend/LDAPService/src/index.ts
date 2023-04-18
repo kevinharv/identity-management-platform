@@ -11,6 +11,11 @@ app.use(cors());
 
 // Define routes
 app.use("/user", userRouter);
+app.get("/healthcheck", (req, res) => {
+    if (ldapClient.connected) {
+        res.sendStatus(200);
+    }
+});
 
 // Handle graceful shutdown
 function serverShutdown() {
