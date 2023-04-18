@@ -16,7 +16,7 @@ interface LDAPPerson {
     accountExpires: Date;
     pwdLastSet: Date;
     badPwdCount: number;
-    badPasswordTime: string;
+    badPasswordTime: Date;
     lastLogon: Date;
     lastLogoff: Date;
     lastLogonTimestamp: Date;

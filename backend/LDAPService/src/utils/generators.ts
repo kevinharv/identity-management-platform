@@ -25,7 +25,7 @@ function generatePersonObject(LDAPAttributes): LDAPPerson {
         accountExpires: new Date(LDAPAttributes[25].values[0] / 1e4 - 1.16444736e13),
         pwdLastSet: new Date(LDAPAttributes[21].values[0] / 1e4 - 1.16444736e13),
         badPwdCount: LDAPAttributes[15].values[0] as number,
-        badPasswordTime: LDAPAttributes[18].values[0],
+        badPasswordTime: new Date(LDAPAttributes[18].values[0] / 1e4 - 1.16444736e13),
         lastLogon: new Date(LDAPAttributes[20].values[0] / 1e4 - 1.16444736e13),
         lastLogoff: new Date(LDAPAttributes[19].values[0] / 1e4 - 1.16444736e13),
         lastLogonTimestamp: new Date(LDAPAttributes[32].values[0] / 1e4 - 1.16444736e13),

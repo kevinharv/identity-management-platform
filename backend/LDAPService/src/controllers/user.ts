@@ -16,7 +16,8 @@ async function getLDAPUser(userPrincipalName: string) {
     const response: any = await basicLDAPSearch(searchDN, searchParams);
 
     // Return the friend user object
-    return generatePersonObject(response.attributes);
+    // return generatePersonObject(response.attributes);
+    return response;
 }
 
 export { getLDAPUser };

@@ -12,6 +12,7 @@ userRouter.get("/get", async (req: any, res) => {
     res.send(user);
 });
 
+
 userRouter.get("/schema", async (req: any, res) => {
     // Query for user with query parameters
     const schema = await getADSchema();
