@@ -4,6 +4,7 @@ import logger from "../config/logger.js";
 
 // Abstract basic search functionality 
 async function basicLDAPSearch(searchDN: DN, searchParameters: SearchOptions) {
+    let results = [];
     // Wrap LDAP search in promise
     const LDAPSearchResults = new Promise((resolve, reject) => {
         // Perform search against LDAP server
@@ -23,7 +24,7 @@ async function basicLDAPSearch(searchDN: DN, searchParameters: SearchOptions) {
             // On search entry, get the attributes and generate the object
             res.on('searchEntry', function (entry: any) {
                 logger.debug(`LDAP Search found record for ${searchParameters.filter}`);
-                resolve(entry.pojo);
+                results.push(entry.pojo);
             });
 
             // Other handlers
@@ -34,6 +35,7 @@ async function basicLDAPSearch(searchDN: DN, searchParameters: SearchOptions) {
                 logger.debug('error: ' + err.message);
             });
             res.on('end', function (result) {
+                resolve(results);
                 logger.debug('status: ' + result.status);
             });
         })

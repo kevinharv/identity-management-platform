@@ -15,8 +15,7 @@ async function getLDAPUser(userPrincipalName: string) {
     // Perform search within DN tree position with search parameters
     const response: any = await basicLDAPSearch(searchDN, searchParams);
 
-    // Return the friend user object
-    // return generatePersonObject(response.attributes);
+    // Return single object (because UPN is unique)
     return response;
 }
 

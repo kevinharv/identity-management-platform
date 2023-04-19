@@ -10,14 +10,24 @@ const userRouter = express.Router();
 userRouter.get("/get", async (req: any, res) => {
     // Query for user with query parameters
     const user = await getLDAPUser(req.query.upn);
-    res.send(generatePersonObject(user.attributes));
+    res.send(generatePersonObject(user[0].attributes));
+});
+
+
+userRouter.get("/get/all", async (req: any, res) => {
+    const users = await getLDAPUser(req.query.upn);
+    let persons = [];
+    users.forEach(element => {
+        persons.push(generatePersonObject(element.attributes));
+    });
+    res.send(persons);
 });
 
 
 userRouter.get("/raw", async (req: any, res) => {
     // Query for user with query parameters
     const user = await getLDAPUser(req.query.upn);
-    res.send(user.attributes);
+    res.send(user);
 });
 
 export default userRouter;
