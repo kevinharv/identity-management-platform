@@ -1,6 +1,5 @@
 import ldapjs, { DN, SearchEntryObject, SearchOptions } from "ldapjs";
 import { basicLDAPSearch } from "../utils/ldapSearch.js";
-import { generatePersonObject } from "../utils/generators.js";
 
 // Query LDAP server for user with UPN
 async function getLDAPUser(userPrincipalName: string) {
