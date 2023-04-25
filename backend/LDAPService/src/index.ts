@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import logger from './config/logger.js';
-import ldapClient from './config/ldapClient.js';
+import ldapClient, { connect } from './config/ldapClient.js';
 import userRouter from './routes/user.js';
 
 // Configure application
@@ -12,22 +12,21 @@ app.use(cors());
 // Define routes
 app.use("/user", userRouter);
 app.get("/healthcheck", (req, res) => {
-    if (ldapClient.connected) {
+    if (ldapClient.isConnected) {
         res.sendStatus(200);
     }
 });
 
 // Handle graceful shutdown
 function serverShutdown() {
-    logger.info("Starting server shutdown");
+    logger.info("Initiating Server Shutdown");
 
     // Unbind (disconnect) LDAP client
-    logger.info("Unbinding LDAP")
-    ldapClient.unbind((err) => {
-        // logger.error(err);
-    })
+    logger.info("Unbinding LDAP Client");
+    ldapClient.unbind();
     
     // Shutdown Express Server
+    logger.info("Server Going Down");
     process.exit(0);
 }
 
@@ -36,6 +35,9 @@ process.on("SIGINT", serverShutdown);
 process.on("SIGTERM", serverShutdown);
 
 // Bring server online
-app.listen(port, () => {
+app.listen(port, async () => {
+    if (!(await connect())) {
+        serverShutdown();
+    }
     logger.info(`Server Listening on Port: ${port}`);
 });

@@ -1,0 +1,5 @@
+LDAP_ADDRESS="192.168.1.80"
+BIND_DN="CN=Test User,OU=Harvey Users,DC=ad,DC=kevharv,DC=com"
+BIND_PW=""
+LOG_PATH="/home/node/logs"
+LOG_LEVEL="debug"

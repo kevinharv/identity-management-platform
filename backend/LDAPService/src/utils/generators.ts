@@ -1,5 +1,4 @@
-import logger from "../config/logger.js";
-
+// Define DirectoryPerson class/object - basically the same as an LDAP SearchEntry from ldapts
 class DirectoryPerson {
     objectClass?: string[];
     objectCategory?: string;
@@ -25,19 +24,14 @@ class DirectoryPerson {
     logonCount?: string;
 
     constructor(LDAPAttributes) {
-        let LDAPUser: LDAPPerson = <LDAPPerson>{};
-
-        for (let i = 0; i < LDAPAttributes.length; i++) {
-            if (LDAPAttributes[i].values.length > 1) {
-                this[LDAPAttributes[i].type] = LDAPAttributes[i].values;
-                LDAPUser[LDAPAttributes[i].type] = LDAPAttributes[i].values;
-            }
-            else {
-                this[LDAPAttributes[i].type] = LDAPAttributes[i].values[0];
-                LDAPUser[LDAPAttributes[i].type] = LDAPAttributes[i].values[0];
+        // Programatically set keys from search entry
+        for (const key in LDAPAttributes) {
+            if (this.hasOwnProperty(key)) {
+                this[key] = LDAPAttributes[key];
             }
         }
 
+        // Unit conversions of Dates/Times
         if (this.whenCreated) {
             const tmp = this.whenCreated.toString();
             this.whenCreated = new Date(tmp.substring(0, 4) + '-' + tmp.substring(4, 6) + '-' + tmp.substring(6, 8) + 'T' + tmp.substring(8, 10) + ':' + tmp.substring(10, 12) + ':' + tmp.substring(12, 14) + 'Z');
@@ -76,11 +70,6 @@ class DirectoryPerson {
             const tmp: number = str as number;
             this.lastLogonTimestamp = new Date(tmp / 1e4 - 1.16444736e13);
         }
-
-    }
-
-    getObject(): LDAPPerson {
-        return this;
     }
 }
 

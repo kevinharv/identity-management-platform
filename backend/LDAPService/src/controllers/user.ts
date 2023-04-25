@@ -1,10 +1,10 @@
-import ldapjs, { DN, SearchEntryObject, SearchOptions } from "ldapjs";
+import { DN, SearchOptions } from "ldapts";
 import { basicLDAPSearch } from "../utils/ldapSearch.js";
 
 // Query LDAP server for user with UPN
 async function getLDAPUser(userPrincipalName: string) {
     
-    const searchDN: DN = ldapjs.parseDN('DC=ad,DC=kevharv,DC=com');
+    const searchDN =  'DC=ad,DC=kevharv,DC=com';
     // Search by userPrincipalName
     const searchParams: SearchOptions = {
         scope: 'sub',
@@ -12,7 +12,7 @@ async function getLDAPUser(userPrincipalName: string) {
     }
     
     // Perform search within DN tree position with search parameters
-    const response: any = await basicLDAPSearch(searchDN, searchParams);
+    const response = await basicLDAPSearch(searchDN, searchParams);
 
     // Return single object (because UPN is unique)
     return response;
