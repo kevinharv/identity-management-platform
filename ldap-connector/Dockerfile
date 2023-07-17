@@ -1,0 +1,38 @@
+# Define base image
+ARG NODE_VERSION=18.15.0
+FROM node:${NODE_VERSION}-alpine AS base
+
+# Create dependencies image
+FROM base AS deps
+# Add compatability for glibc libraries
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY ["package.json", "yarn.lock*", "./"]
+RUN if [ -f yarn.lock ]; then yarn --frozen-lockfile; else yarn; fi
+
+# Define source code builder - rebuild only when necessary
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN yarn build
+
+# Create runner image
+FROM base AS runner
+# Install curl for healthcheck
+RUN apk add curl
+
+WORKDIR /app
+ENV NODE_ENV production
+
+# Copy dependencies, package.json, compiled code
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+COPY --chown=node:node ["package.json", "yarn.lock*", "./"]
+COPY --from=builder --chown=node:node ["/app/dist", "."]
+
+# Set user and start server
+USER node
+EXPOSE ${NODE_PORT}
+CMD ["node", "index.js"]

@@ -1,0 +1,25 @@
+{
+  "name": "ldap-connector",
+  "version": "0.1.0",
+  "description": "LDAP Connector Microservice",
+  "main": "index.js",
+  "type": "module",
+  "license": "ISC",
+  "scripts": {
+    "build": "yarn tsc",
+    "start": "node dist/index.js",
+    "watch": "yarn build && node --watch dist/index.js",
+    "dev": "yarn build && yarn start"
+  },
+  "dependencies": {
+    "fastify": "^4.19.2",
+    "ldapts": "^4.2.6",
+    "pino": "^8.11.0",
+    "pino-pretty": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/ldapjs": "^2.2.5",
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  }
+}
