@@ -4,16 +4,16 @@ services:
     build: .
     environment:
       NODE_ENV: production
-      NODE_PORT: ${SERVER_PORT}
+      NODE_PORT: 3000
     env_file:
-      - env/.env
+      - ./env/.env
     ports:
-      - "${SERVER_PORT}:${SERVER_PORT}"
+      - 3000:3000
     volumes:
       - ./dist:/app/dist
     command: ["node", "--watch", "/app/dist/index.js"]
-    healthcheck:
-      test: ["CMD", "curl", "-fk", "${SERVER_HOSTNAME}:${SERVER_PORT}/healthcheck"]
-      interval: 5s
-      timeout: 3s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-fk", "${SERVER_HOSTNAME}:${SERVER_PORT}/healthcheck"]
+    #   interval: 5s
+    #   timeout: 3s
+    #   retries: 3

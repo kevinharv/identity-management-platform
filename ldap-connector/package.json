@@ -12,14 +12,11 @@
     "dev": "yarn build && yarn start"
   },
   "dependencies": {
-    "fastify": "^4.19.2",
-    "ldapts": "^4.2.6",
-    "pino": "^8.11.0",
-    "pino-pretty": "^10.0.0"
+    "fastify": "^4.21.0",
+    "ldapts": "^6.0.0"
   },
   "devDependencies": {
-    "@types/ldapjs": "^2.2.5",
-    "@types/node": "^18.15.11",
-    "typescript": "^5.0.4"
+    "@types/node": "^20.4.8",
+    "typescript": "^5.1.6"
   }
 }
