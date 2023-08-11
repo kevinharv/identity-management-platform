@@ -9,7 +9,8 @@
     "build": "yarn tsc",
     "start": "node dist/index.js",
     "watch": "yarn build && node --watch dist/index.js",
-    "dev": "yarn build && yarn start"
+    "dev": "yarn build && yarn start",
+    "dock": "docker compose down && docker compose build && docker compose up"
   },
   "dependencies": {
     "fastify": "^4.21.0",

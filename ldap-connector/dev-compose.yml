@@ -11,7 +11,7 @@ services:
       - 3000:3000
     volumes:
       - ./dist:/app/dist
-    command: ["node", "--watch", "/app/dist/index.js"]
+    # command: ["node", "/app/dist/index.js"]
     # healthcheck:
     #   test: ["CMD", "curl", "-fk", "${SERVER_HOSTNAME}:${SERVER_PORT}/healthcheck"]
     #   interval: 5s
